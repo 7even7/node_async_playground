@@ -1,22 +1,24 @@
 var sharedEvents = require("./events_shared.js");
 var http = require("http");
 var number;
+var chunks=1;
 
-function getAsyncNumber(){
+function getContentLenght(){
     http.get("http://www.google.fi/", (response)=>{
         response.setEncoding('utf8')
-        response.once('data',(chunk)=>{
+        response.on('data',(chunk)=>{
             number = chunk.length;
             sharedEvents.emit('pageReceived');    
         });
     })
 }
 
-function returnAsyncContent(topic){
-    getAsyncNumber();
+function getURLContentsLength(URL){
+    getContentLenght();
     sharedEvents.on("pageReceived", ()=>{
-        console.log("Length of first chunk of data is "+number+"\n Function was called with parameter: "+topic);
+        console.log("Length of "+ chunks+". chunk of data is "+number);
+        chunks+=1;
     })
     
 }
-module.exports = returnAsyncContent;
+module.exports = getURLContentsLength;
