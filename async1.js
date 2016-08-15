@@ -1,10 +1,18 @@
-var async = require("async");
+var getChunkLength = require("./events2.js")
 var fs = require("fs");
+var url ="";
+const as = require('async')
 
-async.map(['events1.js','events2.js'], fs.stat, function(err, results){
-    // results is now an array of stats for each file
-    if(err){
-        console.log(err);
-    }
-    console.log(results);
-});
+readURLSfromFile();
+
+
+
+
+function readURLSfromFile(){
+    fs.readFile('url.txt', (err, data) =>{
+        if(err) console.log(err);
+        url=data.toString();
+    }) 
+}
+
+ 

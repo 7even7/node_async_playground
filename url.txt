@@ -1,1 +1,1 @@
-"http://www.google.fi/"
+http://www.google.fi/
